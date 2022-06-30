@@ -1,0 +1,112 @@
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-family: Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 1rem; }
+
+h1, .h1 {
+  font-size: 32px; }
+  @media all and (min-width: 480px) {
+    h1, .h1 {
+      font-size: 60px; } }
+
+h2, .h2 {
+  font-size: 24px; }
+  @media all and (min-width: 480px) {
+    h2, .h2 {
+      font-size: 32px; } }
+
+h3, .h3 {
+  font-size: 30px; }
+
+h4, .h4 {
+  font-size: 20px; }
+  @media all and (min-width: 480px) {
+    h4, .h4 {
+      font-size: 24px; } }
+
+h5, .h5 {
+  font-size: 20px; }
+
+h6, .h6 {
+  font-size: 18px; }
+
+a {
+  display: inline-block;
+  text-decoration: underline;
+  -webkit-transition: color ease-out 0.35s;
+  -o-transition: color ease-out 0.35s;
+  transition: color ease-out 0.35s; }
+  a:hover {
+    text-decoration: none; }
+
+p {
+  margin-top: 0; }
+  p:last-of-type {
+    margin-bottom: 0; }
+
+b, strong {
+  font-weight: 700; }
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 24px;
+  margin: 0 auto; }
+  @media all and (min-width: 768px) {
+    .container {
+      max-width: 760px; } }
+  @media all and (min-width: 992px) {
+    .container {
+      max-width: 990px; } }
+  @media all and (min-width: 1200px) {
+    .container {
+      max-width: 1200px; } }
+  .container-fluid {
+    width: 100%;
+    max-width: 100%; }
+
+html, body {
+  height: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  margin: 0; }
+
+body {
+  position: relative;
+  min-width: 300px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #000;
+  background-color: #fff; }
+
+img {
+  max-width: 100%;
+  height: auto; }
+
+.wrapper {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden; }
+  .wrapper .footer {
+    margin-top: auto; }
+
+/*# sourceMappingURL=main.min.css.map */
