@@ -51,5 +51,13 @@ $uri = get_template_directory_uri();
 
 	<div class="wrapper">
 		<header class="header">
+			<div class="container">
+				<div class="header-inner">
+					<?php
+					get_template_part( 'includes/common/header/logo' );
+					get_template_part( 'includes/common/header/menu' );
+					?>
+				</div>
+			</div>
 		</header>
 

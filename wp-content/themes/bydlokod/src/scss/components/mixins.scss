@@ -1,0 +1,7 @@
+@mixin transition-opacity() {
+	transition: opacity ease-out $tr;
+
+	&:hover {
+		opacity: 0.75
+	}
+}

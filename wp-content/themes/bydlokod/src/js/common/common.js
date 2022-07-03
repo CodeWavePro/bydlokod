@@ -1,9 +1,7 @@
-/**
- * Please feel free to create global functions
- * or variables here, which you can export from here
- * and import in other files for usage.
- */
+import { renderSVGs } from './global'
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	'use strict'
+
+	renderSVGs( document )
 } )

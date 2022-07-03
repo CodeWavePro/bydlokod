@@ -2,12 +2,17 @@
 @import 'components/vars';
 @import 'components/typography';
 @import 'components/grid';
+@import 'components/mixins';
 
 // Theme base styles.
 @import 'components/base';
+@import 'common/menu';
 
-// Theme common styles.
+// Theme Header styles.
 @import 'common/header/header';
+@import 'common/header/logo';
 @import 'common/header/menu';
+
+// Theme Footer styles.
 @import 'common/footer/footer';
 @import 'common/footer/menu';

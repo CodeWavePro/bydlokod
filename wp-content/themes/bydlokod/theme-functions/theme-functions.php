@@ -127,3 +127,16 @@ function rp_get_carbon_lang_ending(): string
 	return '_' . ICL_LANGUAGE_CODE;
 }
 
+add_filter( 'upload_mimes', 'bydlo_mime_types' );
+/**
+ * Allow SVG upload.
+ *
+ * @param	array	$mimes	Media library allowed files types.
+ * @return	array	$mimes	Media library allowed files types + new one - SVG.
+ */
+function bydlo_mime_types( $mimes ): array
+{
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+
