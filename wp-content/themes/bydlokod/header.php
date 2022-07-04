@@ -63,6 +63,7 @@ $uri = get_template_directory_uri();
 					get_template_part( 'includes/common/header/logo' );
 					get_template_part( 'includes/common/header/menu' );
 					get_template_part( 'includes/common/header/button' );
+					get_template_part( 'includes/common/header/auth' );
 					?>
 				</div>
 			</div>

@@ -1,0 +1,23 @@
+.header-auth {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: $spacer-xxl;
+
+	&-link {
+		color: $lightgray;
+		text-decoration: none;
+
+		&:hover {
+			color: $violet
+		}
+
+		&.register {
+			color: $dark;
+			margin-left: 15px;
+
+			&:hover {
+				color: $violet
+			}
+		}
+	}
+}

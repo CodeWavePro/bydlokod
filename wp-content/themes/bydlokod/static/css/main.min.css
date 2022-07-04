@@ -257,4 +257,22 @@ ul {
 .header-button {
   margin-left: 40px; }
 
+.header-auth {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: 60px; }
+  .header-auth-link {
+    color: #BCBCBC;
+    text-decoration: none; }
+    .header-auth-link:hover {
+      color: #9BABFF; }
+    .header-auth-link.register {
+      color: #323232;
+      margin-left: 15px; }
+      .header-auth-link.register:hover {
+        color: #9BABFF; }
+
 /*# sourceMappingURL=main.min.css.map */
