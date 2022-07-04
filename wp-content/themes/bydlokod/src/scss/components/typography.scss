@@ -4,8 +4,8 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-	font-family: $ff-title;
-	font-weight: $fw-bold;
+	font-family: $ff;
+	font-weight: $fw-semibold;
 	line-height: $lh-title;
 	margin: 0 0 1rem
 }
@@ -22,7 +22,7 @@ h2, .h2 {
 	font-size: 24px;
 
 	@media all and (min-width: $sm) {
-		font-size: 32px
+		font-size: 36px
 	}
 }
 
@@ -34,7 +34,7 @@ h4, .h4 {
 	font-size: $fs-xl;
 
 	@media all and (min-width: $sm) {
-		font-size: 24px;
+		font-size: 24px
 	}
 }
 
