@@ -1,0 +1,32 @@
+.header {
+	&-mobile-button {
+		display: none
+	}
+
+	&-nav-wrapper {
+		margin-left: auto
+	}
+
+	.menu {
+		display: flex;
+		flex-wrap: wrap;
+
+		&-item {
+			margin-right: $spacer-lg;
+
+			&:last-child {
+				margin-right: 0
+			}
+
+			a {
+				font-size: $fs-lg;
+				font-weight: $fw-bold;
+				color: $dark;
+
+				&:hover {
+					color: $violet
+				}
+			}
+		}
+	}
+}

@@ -27,8 +27,18 @@ $lh			: 1.5;
 $lh-title	: 1.2;
 
 // Colors.
-$white	: #fff;
-$black	: #000;
+$white	    : #fff;
+$lightgray  : #BCBCBC;
+$black	    : #000;
+$dark       : #323232;
+$violet     : #9BABFF;
+
+// Spacers.
+$spacer-xs  : 10px;
+$spacer-sm  : 20px;
+$spacer-md  : 30px;
+$spacer-lg  : 40px;
+$spacer-xl  : 50px;
 
 // Others.
 $tr		: 0.35s;
