@@ -123,12 +123,17 @@ ul {
   color: #333;
   text-decoration: none; }
 
-.header-inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap; }
+.header {
+  background-color: #fff;
+  padding: 15px 0;
+  -webkit-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+          box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03); }
+  .header-inner {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
 
 .header-logo a {
   display: block;
@@ -140,6 +145,7 @@ ul {
 
 .header-logo img, .header-logo svg {
   display: block;
-  height: 60px; }
+  height: 60px;
+  width: auto; }
 
 /*# sourceMappingURL=main.min.css.map */
