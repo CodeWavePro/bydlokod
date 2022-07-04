@@ -12,8 +12,11 @@
 
 // Theme base styles.
 @import 'components/base';
-@import 'components/buttons';
+@import 'components/helpers';
+@import 'common/buttons';
 @import 'common/menu';
+@import 'common/popup';
+@import 'common/form';
 
 // Theme Header styles.
 @import 'common/header/header';

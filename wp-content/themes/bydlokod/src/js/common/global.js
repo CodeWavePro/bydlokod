@@ -1,3 +1,5 @@
+let targetElement
+
 /**
  * Render SVG code from images (<img /> tags).
  *
@@ -42,4 +44,27 @@ export const renderSVGs = ( wrapper, imgSelector = '' ) => {
 				if( svgTag ) svg.replaceWith( svgTag )
 			} )
 	} )
+}
+
+/**
+ * Set variable for disableScrollLock.
+ *
+ * @param	{String}	elementId	Specific element ID.
+ * @returns	{Boolean}				True if element is set, false if not.
+ */
+export const setTargetElement = elementId => {
+	targetElement = document.querySelector( elementId )
+
+	if( ! targetElement ) return false
+
+	return true
+}
+
+/**
+ * Get element for disableScrollLock.
+ *
+ * @returns targetElement value.
+ */
+export const getTargetElement = () => {
+	return targetElement
 }

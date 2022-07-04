@@ -1,0 +1,27 @@
+form {
+	position: relative
+}
+
+fieldset {
+	border: none;
+	padding: 0
+}
+
+label {
+	position: relative;
+	display: block
+}
+
+input {
+	font-family: $ff;
+	height: 50px;
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid $lightgray;
+
+	&:focus {
+		&::placeholder {
+			opacity: 0
+		}
+	}
+}

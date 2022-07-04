@@ -9,6 +9,8 @@
 ?>
 
 <div class="header-search">
-	<i class="fa-solid fa-magnifying-glass"></i>
+	<i class="fa-solid fa-magnifying-glass open-searchform"></i>
+
+	<?php get_search_form() ?>
 </div>
 
