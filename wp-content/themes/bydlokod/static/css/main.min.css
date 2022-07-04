@@ -6283,11 +6283,21 @@ ul {
   height: 60px;
   width: auto; }
 
+.header-search {
+  margin-left: auto; }
+  .header-search i {
+    cursor: pointer;
+    -webkit-transition: color ease-out 0.35s;
+    -o-transition: color ease-out 0.35s;
+    transition: color ease-out 0.35s; }
+    .header-search i:hover {
+      color: #9BABFF; }
+
 .header-mobile-button {
   display: none; }
 
 .header-nav-wrapper {
-  margin-left: auto; }
+  margin-left: 40px; }
 
 .header .menu {
   display: -webkit-box;

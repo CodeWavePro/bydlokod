@@ -1,0 +1,12 @@
+.header-search {
+    margin-left: auto;
+
+    i {
+        cursor: pointer;
+        transition: color ease-out $tr;
+
+        &:hover {
+            color: $violet
+        }
+    }
+}
