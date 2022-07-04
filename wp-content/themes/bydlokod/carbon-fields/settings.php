@@ -14,6 +14,10 @@ use Carbon_Fields\Field;
 Container::make( 'theme_options', __( 'Настройки темы' ) )
 	->add_tab( __( 'Хедер' ), [
 		Field::make( 'image', 'header_logo', __( 'Лого' ) )
+		->set_width( 50 ),
+
+		Field::make( 'text', 'header_button_text', __( 'Текст кнопки хедера' ) )
+			->set_width( 50 )
 	] )
 
 	/*->add_tab( __( 'Авторизация' ), [

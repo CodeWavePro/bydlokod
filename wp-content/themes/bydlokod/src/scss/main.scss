@@ -7,12 +7,14 @@
 
 // Theme base styles.
 @import 'components/base';
+@import 'components/buttons';
 @import 'common/menu';
 
 // Theme Header styles.
 @import 'common/header/header';
 @import 'common/header/logo';
 @import 'common/header/menu';
+@import 'common/header/button';
 
 // Theme Footer styles.
 @import 'common/footer/footer';
