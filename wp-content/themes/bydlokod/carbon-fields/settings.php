@@ -20,6 +20,10 @@ Container::make( 'theme_options', __( 'Настройки темы' ) )
 			->set_width( 50 )
 	] )
 
+	->add_tab( __( 'Главная' ), [
+		Field::make( 'text', 'home_title_text', __( 'Заголовок постов' ) )
+	] )
+
 	/*->add_tab( __( 'Авторизация' ), [
 		Field::make( 'rich_text', 'account_activation_email' . rp_get_carbon_lang_ending(), __( 'Account Activation E-mail Text' ) )
 			->set_help_text( __( 'Placeholders: [user_login], [link].' ) )

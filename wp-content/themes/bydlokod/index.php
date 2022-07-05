@@ -8,33 +8,44 @@
  */
 
 get_header();
+
+$home_title_text = carbon_get_theme_option( 'home_title_text' );
 ?>
 
-<main class="main">
-	<?php
-	if( have_posts() ){
-		while( have_posts() ){
-			the_post();
+<div class="main-wrapper">
+	<div class="container">
+		<div class="main-wrapper-inner">
+			<?php get_sidebar() ?>
 
-			echo get_the_permalink();
-			the_post_thumbnail( 'thumb-width' ) || ( $backgroundImg = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ) );
-			the_title();
+			<main class="main">
+				<div class="main-title">
+					<?php
+					if( $home_title_text ){
+						?>
+						<h1>
+							<?php printf( esc_html__( '%s', 'bydlokod' ), $home_title_text ) ?>
+						</h1>
+						<?php
+					}
+					?>
+				</div>
 
-			if ( has_excerpt() ){
-				the_excerpt();
-			}
-
-			echo esc_html( get_the_date( 'F j, Y' ) );
-		}
-	}	else {
-		esc_html_e( 'Posts not found.', 'bydlokod' );
-	}
-
-	if( get_next_posts_link() ){
-		next_posts_link( '' );
-	}
-	?>
-</main>
+				<div class="main-posts">
+					<?php
+					if( have_posts() ){
+						while( have_posts() ){
+							the_post();
+							get_template_part( 'includes/single/preview', get_post_type() );
+						}
+					}	else {
+						esc_html_e( 'Статьи не найдены.', 'bydlokod' );
+					}
+					?>
+				</div>
+			</main>
+		</div><!-- .main-wrapper-inner -->
+	</div><!-- .container -->
+</div><!-- .main-wrapper -->
 
 <?php
 get_footer();

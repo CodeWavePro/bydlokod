@@ -14,7 +14,7 @@ h1, .h1 {
 	font-size: 32px;
 
 	@media all and (min-width: $sm) {
-		font-size: 60px
+		font-size: 36px
 	}
 }
 
@@ -66,4 +66,12 @@ p {
 
 b, strong {
 	font-weight: $fw-bold
+}
+
+.main-title {
+	margin-bottom: 18px;
+
+	h1 {
+		margin-bottom: 0
+	}
 }
