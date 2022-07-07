@@ -18,6 +18,19 @@ function bydlo_remove_jq_migrate( WP_Scripts $scripts ){
 	if( ! is_admin() ) $scripts->remove( 'jquery' );
 }
 
+add_action( 'init', 'bydlo_register_session' );
+/**
+ * For user sessions.
+ */
+function bydlo_register_session(){
+	if( ! session_id() ) session_start();
+}
+
+/**
+ * Remove double view count when opening post.
+ */
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );
+
 add_action( 'wp_head', 'bydlo_js_vars_for_frontend' );
 /**
  * JS variables for frontend, such as AJAX URL.
@@ -215,5 +228,48 @@ function bydlo_get_author_name( int $post_id ): ?string
 	}
 
 	return $html . '</div>';
+}
+
+/**
+ * Get post views count.
+ *
+ * @param	int	$post_id	Specific post ID.
+ * @return	int				Current post views count.
+ */
+function bydlo_get_post_views_count( int $post_id ): ?int
+{
+	if( ! $post_id ) return null;
+
+	if( ! $count = get_post_meta( $post_id, 'views_count', true ) )
+		$count = 0;
+
+	return ( int ) $count;
+}
+
+/**
+ * Set post views count.
+ *
+ * @param	int		$post_id	Specific post ID.
+ * @return	bool				True on success, false on failure.
+ */
+function bydlo_set_post_views_count( int $post_id ): ?bool
+{
+	if( ! $post_id ) return null;
+
+	// If visited posts array exists in current User's session.
+	if( isset( $_SESSION['visited_posts'] ) ){
+		// If current post was already visited by this User - exit.
+		if( in_array( $post_id, $_SESSION['visited_posts'] ) ) return null;
+
+		// Add current post ID to current User's session.
+		$_SESSION['visited_posts'][] = $post_id;
+	}	else {
+		// Create array of visited posts in session and write current post ID in it.
+		$_SESSION['visited_posts'] = [$post_id];
+	}
+
+	$new_count = bydlo_get_post_views_count( $post_id ) + 1;
+
+	return update_post_meta( $post_id, 'views_count', $new_count );
 }
 

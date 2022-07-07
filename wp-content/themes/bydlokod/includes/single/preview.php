@@ -54,7 +54,7 @@ $permalink = get_the_permalink( $post_id );
 				<div class="post-stats">
 					<div class="post-stats-item" title="<?php esc_attr_e( 'Просмотров', 'bydlokod' ) ?>">
 						<i class="fa-solid fa-eye"></i>
-						<span>999</span>
+						<span><?php echo bydlo_get_post_views_count( $post_id ) ?></span>
 					</div>
 
 					<div class="post-stats-item" title="<?php esc_attr_e( 'Комментариев', 'bydlokod' ) ?>">
