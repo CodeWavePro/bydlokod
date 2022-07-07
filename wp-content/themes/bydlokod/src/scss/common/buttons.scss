@@ -1,4 +1,5 @@
 .button {
+	position: relative;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
@@ -18,6 +19,7 @@
 	}
 
 	&.lg {
+		min-width: 180px;
 		font-size: $fs-md;
 		padding: 13px 18px
 	}

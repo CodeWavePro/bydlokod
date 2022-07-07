@@ -9,7 +9,9 @@
 
 get_header();
 
-$home_title_text = carbon_get_theme_option( 'home_title_text' );
+$home_title_text	= carbon_get_theme_option( 'home_title_text' );
+$posts_per_page		= get_option( 'posts_per_page' );
+$all_posts_count	= count( get_posts( ['post_type' => 'post', 'posts_per_page' => -1] ) );
 ?>
 
 <div class="main-wrapper">
@@ -41,6 +43,17 @@ $home_title_text = carbon_get_theme_option( 'home_title_text' );
 						esc_html_e( 'Статьи не найдены.', 'bydlokod' );
 					}
 					?>
+				</div>
+
+				<div class="posts-loadmore">
+					<button
+						class="button lg rounded violet"
+						data-per-page="<?php echo esc_attr( $posts_per_page ) ?>"
+						data-offset="<?php echo esc_attr( $posts_per_page ) ?>"
+						data-all-posts-count="<?php echo esc_attr( $all_posts_count ) ?>"
+					>
+						<?php esc_html_e( 'Загрузить ещё', 'bydlokod' ) ?>
+					</button>
 				</div>
 			</main>
 		</div><!-- .main-wrapper-inner -->

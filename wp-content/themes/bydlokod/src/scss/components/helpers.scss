@@ -35,3 +35,17 @@
 		opacity: 0.75
 	}
 }
+
+span.loader {
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translate($spacer-xs, -50%);
+
+	i {
+		color: $lightgray;
+		font-size: $fs-lg;
+		margin: 0;
+		animation: rotate ease-in-out infinite 1s
+	}
+}

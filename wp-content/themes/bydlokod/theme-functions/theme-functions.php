@@ -398,8 +398,24 @@ function bydlo_get_post_likes_count( int $post_id ): ?int
 
 	$liked_by = get_post_meta( $post_id, 'liked_by', true );
 
-	if( ! $liked_by ) return 0;
+	return ! $liked_by ? 0 : count( explode( ',', $liked_by ) );
+}
 
-	return count( explode( ',', $liked_by ) );
+/**
+ * Helps to get template part to variable.
+ *
+ * @param	string	$template_name	Template file name.
+ * @param	string	$part_name		Template part file name.
+ * @param	array	$args			Extra args.
+ * @return	string 	$content		HTML content from template.
+ */
+function bydlo_get_template_part( string $template_name, string $part_name = null, array $args = [] ): string
+{
+	ob_start();
+	get_template_part( $template_name, $part_name, $args );
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	return $content;
 }
 

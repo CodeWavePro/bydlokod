@@ -1,10 +1,71 @@
-import { getAjaxStatus, setAjaxStatus, bydloAjaxRequest } from '../common/global'
+import {
+	getAjaxStatus,
+	setAjaxStatus,
+	bydloAjaxRequest,
+	createLoader
+} from '../common/global'
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	'use strict'
 
+	loadMorePosts()
 	clickPostLike()
 } )
+
+/**
+ * Load more posts on button click.
+ */
+const loadMorePosts = () => {
+	const posts			= document.querySelectorAll( '.post-preview' ),
+		postsWrapper	= document.querySelector( '.main-posts' ),
+		button			= document.querySelector( '.posts-loadmore .button' )
+
+	if( ! posts.length || ! button || ! postsWrapper ) return
+
+	button.addEventListener( 'click', () => {
+		if( getAjaxStatus() ) return
+
+		setAjaxStatus( true )
+
+		const ajaxData	= new FormData(),
+			loader		= createLoader(),
+			perPage		= parseInt( button.dataset.perPage ),
+			totalCount	= parseInt( button.dataset.allPostsCount )
+		let offset		= parseInt( button.dataset.offset )
+
+		ajaxData.append( 'action', 'bydlo_ajax_load_more_posts' )
+		ajaxData.append( 'per_page', perPage )
+		ajaxData.append( 'offset', offset )
+		button.appendChild( loader )
+
+		bydloAjaxRequest( ajaxData ).then( response => {
+			if( response ){
+				loader.remove()
+
+				switch( response.success ){
+					case true:
+						console.log( response.data.msg )
+						postsWrapper.innerHTML += response.data.posts
+						clickPostLike()
+
+						// If there are no more posts - remove button.
+						if( totalCount <= offset + perPage )
+							button.remove()
+						else
+							button.dataset.offset = offset + perPage
+
+						break
+
+					case false:
+						console.error( response.data.msg )
+						break
+				}
+			}
+
+			setAjaxStatus( false )
+		} )
+	} )
+}
 
 /**
  * Click on post's likes block.
@@ -27,12 +88,10 @@ const clickPostLike = () => {
 			setAjaxStatus( true )
 
 			const ajaxData	= new FormData(),
-				loader		= document.createElement( 'span' )
+				loader		= createLoader()
 
 			ajaxData.append( 'action', 'bydlo_ajax_set_post_likes' )
 			ajaxData.append( 'post_id', postId )
-			loader.classList.add( 'loader' )
-			loader.innerHTML = '<i class="fa-solid fa-circle-notch"></i>'
 			likesBlock.appendChild( loader )
 
 			bydloAjaxRequest( ajaxData ).then( response => {

@@ -109,3 +109,17 @@ export const bydloAjaxRequest = async formData => {
 
 	return data
 }
+
+/**
+ * Create loader HTML Object.
+ *
+ * @returns {HTMLObject}	loader	HTML Object to insert in some block/element.
+ */
+export const createLoader = () => {
+	const loader = document.createElement( 'span' )
+
+	loader.classList.add( 'loader' )
+	loader.innerHTML = '<i class="fa-solid fa-circle-notch"></i>'
+
+	return loader
+}
