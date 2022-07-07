@@ -136,7 +136,8 @@ add_filter( 'upload_mimes', 'bydlo_mime_types' );
  */
 function bydlo_mime_types( $mimes ): array
 {
-	$mimes['svg'] = 'image/svg+xml';
+	if( is_admin() ) $mimes['svg'] = 'image/svg+xml';
+
 	return $mimes;
 }
 
