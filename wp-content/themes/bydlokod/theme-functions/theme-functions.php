@@ -117,7 +117,7 @@ function bydlo_sender_name( string $original_email_from ): string
  * Get current language ending for Carbon Fields.
  *
  * @return string Current language with underscore at the beginning.
- */
+ *
 function rp_get_carbon_lang_ending(): string
 {
 	$ending = '';
@@ -125,7 +125,7 @@ function rp_get_carbon_lang_ending(): string
 	if( ! defined( 'ICL_LANGUAGE_CODE' ) ) return $ending;
 
 	return '_' . ICL_LANGUAGE_CODE;
-}
+}*/
 
 add_filter( 'upload_mimes', 'bydlo_mime_types' );
 /**
