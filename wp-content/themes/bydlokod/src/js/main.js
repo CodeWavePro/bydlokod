@@ -4,3 +4,6 @@ import './common/common'
 // Theme Header.
 import './common/header'
 import './common/search'
+
+// Post.
+import './post/ajax'

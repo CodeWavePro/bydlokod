@@ -273,3 +273,133 @@ function bydlo_set_post_views_count( int $post_id ): ?bool
 	return update_post_meta( $post_id, 'views_count', $new_count );
 }
 
+/**
+ * Like or dislike post.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @return	array|null				Reaction type and post likes count.
+ */
+function bydlo_process_reaction_on_post( int $post_id ): ?array
+{
+	if(
+		! $post_id ||
+		! ( $current_user_id = get_current_user_id() )
+	) return null;
+
+	// Get string of Users' IDs who already liked this post.
+	$liked_by = get_post_meta( $post_id, 'liked_by', true );
+
+	// If field is not existing yet - current User is the first who liked this post.
+	if( ! $liked_by ){
+		bydlo_like_post( $post_id, $current_user_id );
+		$reaction = 'like';
+	}
+
+	// Turn IDs string to array of IDs.
+	$liked_by_ids = explode( ',', $liked_by );
+
+	// If current User is already in array - now he dislikes this post.
+	if( in_array( $current_user_id, $liked_by_ids ) ){
+		bydlo_dislike_post( $post_id, $current_user_id, $liked_by_ids );
+		$reaction = 'dislike';
+	}	else {
+		bydlo_like_post( $post_id, $current_user_id, $liked_by );
+		$reaction = 'like';
+	}
+
+	return [
+		'reaction'	=> $reaction,
+		'count'		=> bydlo_get_post_likes_count( $post_id )
+	];
+}
+
+/**
+ * Check if specific post already liked by current User.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @return	bool					True if already liked, false if not.
+ */
+function bydlo_check_if_post_already_liked( int $post_id ): ?bool
+{
+	if( ! $post_id ) return null;
+
+	// Get string of Users' IDs who already liked this post.
+	$liked_by		= get_post_meta( $post_id, 'liked_by', true );
+	$liked_by_ids	= explode( ',', $liked_by );	// Turn IDs string to array of IDs.
+
+	// Check if current User ID is already in array.
+	if( in_array( get_current_user_id(), $liked_by_ids ) ) return true;
+
+	return false;
+}
+
+/**
+ * Like specific post.
+ *
+ * @param	int			$post_id			Specific post ID.
+ * @param	int			$current_user_id	Current User ID.
+ * @param	string		$liked_by			String of Users IDs who liked post.
+ * @return	bool|null						True if like added, false if not.
+ */
+function bydlo_like_post( int $post_id, int $current_user_id, string $liked_by = '' ): ?bool
+{
+	if(
+		! $post_id ||
+		! ( $current_user_id = get_current_user_id() )
+	) return null;
+
+	if( ! $liked_by )
+		return update_post_meta( $post_id, 'liked_by', $current_user_id );
+	else
+		return update_post_meta( $post_id, 'liked_by', $liked_by . ',' . $current_user_id );
+}
+
+/**
+ * Dislike specific post.
+ *
+ * @param	int			$post_id			Specific post ID.
+ * @param	int			$current_user_id	Current User ID.
+ * @param	array		$liked_by_ids		Array of Users IDs who liked post.
+ * @return	bool|null						True if like removed, false if not.
+ */
+function bydlo_dislike_post( int $post_id, int $current_user_id, array $liked_by_ids = [] ): ?bool
+{
+	if(
+		! $post_id ||
+		! ( $current_user_id = get_current_user_id() )
+	) return null;
+
+	$found = false;
+
+	// Search for current User ID in post liked array.
+	foreach( $liked_by_ids as $key => $id ){
+		// If found - remove ID from array and exit loop.
+		if( $current_user_id == $id ){
+			array_splice( $liked_by_ids, $key, 1 );
+			$found = true;
+			break;
+		}
+	}
+
+	// Update post meta field with string of other liked IDs.
+	if( $found ) return update_post_meta( $post_id, 'liked_by', implode( ',', $liked_by_ids ) );
+	else return false;
+}
+
+/**
+ * Dislike specific post.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @return	int|null				Post likes count.
+ */
+function bydlo_get_post_likes_count( int $post_id ): ?int
+{
+	if( ! $post_id ) return null;
+
+	$liked_by = get_post_meta( $post_id, 'liked_by', true );
+
+	if( ! $liked_by ) return 0;
+
+	return count( explode( ',', $liked_by ) );
+}
+

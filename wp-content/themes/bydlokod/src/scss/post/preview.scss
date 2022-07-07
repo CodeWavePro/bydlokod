@@ -107,7 +107,33 @@
 		&.reactions {
 			color: $violet;
 			cursor: pointer;
-			margin-left: $spacer-sm
+			margin-left: $spacer-sm;
+			border-radius: $radius-1;
+			transition:
+				opacity ease-out $tr,
+				padding ease-out $tr,
+				background-color ease-out $tr;
+
+			&:hover {
+				opacity: 0.75
+			}
+
+			&.you-liked {
+				background-color: $red;
+				padding: 0 8px;
+
+				i, span {
+					color: $white
+				}
+
+				span {
+					font-weight: $fw-bold
+				}
+			}
+		}
+
+		i, span {
+			transition: color ease-out $tr
 		}
 
 		i {

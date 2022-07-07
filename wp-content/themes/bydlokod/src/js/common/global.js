@@ -1,4 +1,8 @@
-let targetElement
+export const TRANSITION_DURATION = 350,
+	ajaxUrl = window.wpData.ajaxUrl
+
+let ajaxStatus = false,
+	targetElement
 
 /**
  * Render SVG code from images (<img /> tags).
@@ -67,4 +71,41 @@ export const setTargetElement = elementId => {
  */
 export const getTargetElement = () => {
 	return targetElement
+}
+
+/**
+ * Get AJAX working status: is in work now or not.
+ *
+ * @returns	{Boolean} AJAX working status.
+ */
+export const getAjaxStatus = () => ajaxStatus
+
+/**
+ * Set AJAX working status: is in work now or not.
+ *
+ * @param	{Boolean}	state	Working status - true or false.
+ * @returns	{Boolean}			True on success, false on failure.
+ */
+export const setAjaxStatus = state => {
+	if( typeof state === 'boolean' ) ajaxStatus = state
+	else return false
+
+	return true
+}
+
+/**
+ * Custom AJAX request.
+ *
+ * @param	{Object}	formData	Data for fetch body.
+ * @returns	{Array}					Reponse data array.
+ */
+export const bydloAjaxRequest = async formData => {
+	let response = await fetch( ajaxUrl, {
+		method		: 'post',
+		credentials	: 'same-origin',
+		body		: formData
+	} )
+	let data = await response.json()
+
+	return data
 }
