@@ -26,13 +26,19 @@ const clickPostLike = () => {
 
 			setAjaxStatus( true )
 
-			const ajaxData = new FormData()
+			const ajaxData	= new FormData(),
+				loader		= document.createElement( 'span' )
 
 			ajaxData.append( 'action', 'bydlo_ajax_set_post_likes' )
 			ajaxData.append( 'post_id', postId )
+			loader.classList.add( 'loader' )
+			loader.innerHTML = '<i class="fa-solid fa-circle-notch"></i>'
+			likesBlock.appendChild( loader )
 
 			bydloAjaxRequest( ajaxData ).then( response => {
 				if( response ){
+					loader.remove()
+
 					switch( response.success ){
 						case true:
 							console.log( response.data.msg )
@@ -45,7 +51,7 @@ const clickPostLike = () => {
 									icon.classList.remove( 'like-animation' )
 									likesBlock.classList.add( 'you-liked' )
 									likesCount.innerHTML = response.data.count
-								}, 750 );
+								}, 750 )
 							}	else {	// If it was dislike.
 								icon.classList.add( 'dislike-animation' )
 								likesBlock.setAttribute( 'title', 'Оценить' )
@@ -53,7 +59,7 @@ const clickPostLike = () => {
 									icon.classList.remove( 'dislike-animation' )
 									likesBlock.classList.remove( 'you-liked' )
 									likesCount.innerHTML = response.data.count
-								}, 750 );
+								}, 750 )
 							}
 
 							break
@@ -67,5 +73,5 @@ const clickPostLike = () => {
 				setAjaxStatus( false )
 			} )
 		} )
-	} );
+	} )
 }
