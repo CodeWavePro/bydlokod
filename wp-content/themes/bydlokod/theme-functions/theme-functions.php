@@ -141,3 +141,79 @@ function bydlo_mime_types( $mimes ): array
 	return $mimes;
 }
 
+/**
+ * Get post terms.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @param	string		$post_type	Specific post type.
+ * @param	string		$taxonomy	Specific post taxonomy.
+ * @return	string|null	$html		Post terms HTML structure.
+ */
+function bydlo_get_post_terms( int $post_id, string $post_type = 'post', string $taxonomy = 'category' ): ?string
+{
+	if( ! $post_id ) return null;
+
+	$terms = get_the_terms( $post_id, $taxonomy );
+
+	if( is_wp_error( $terms ) || empty( $terms ) ) return null;
+
+	$html = '<div class="post-terms">';
+
+	foreach( $terms as $term ){
+		$html .= '<a class="post-term" href="' . get_term_link( $term->term_id, $taxonomy ) . '" title="' . sprintf( esc_attr__( 'На страницу категории %s', 'bydlokod' ), $term->name ) . '">' .
+			sprintf( esc_html__( '%s', 'bydlokod' ), $term->name ) .
+		'</a>';
+	}
+
+	return $html . '</div>';
+}
+
+/**
+ * Get post author avatar.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @return	string|null	$html		HTML structure for author avatar.
+ */
+function bydlo_get_author_avatar( int $post_id ): ?string
+{
+	if( ! $post_id ) return null;
+
+	$author_id		= get_post_field( 'post_author', $post_id );
+	$author_name	= get_the_author_meta( 'display_name', $author_id );
+	$author_email	= get_the_author_meta( 'email', $author_id );
+	$avatar			= '<div class="author-avatar img-cover-inside opacity-075-on-hover">
+		<a href="' . get_author_posts_url( $author_id ) . '" title="' . esc_attr( 'На страницу автора', 'bydlokod' ) . '">
+			<img src="' . get_avatar_url( $author_email ) . '" width="35" height="35" class="avatar" alt="' . esc_attr( $author_name ) . '" />
+		</a>
+	</div>';
+
+	return $avatar;
+}
+
+/**
+ * Get post author name.
+ *
+ * @param	int			$post_id	Specific post ID.
+ * @return	string|null	$html		HTML structure for author name.
+ */
+function bydlo_get_author_name( int $post_id ): ?string
+{
+	if( ! $post_id ) return null;
+
+	$author_id	= get_post_field( 'post_author', $post_id );
+	$user_roles	= get_user_by( 'ID', $author_id )->roles;
+	$html		= '<div class="author-name">' .
+		'<a class="opacity-075-on-hover" href="' . get_author_posts_url( $author_id ) . '" title="' . esc_attr( 'На страницу автора', 'bydlokod' ) . '">' .
+			get_the_author_meta( 'display_name', $author_id ) .
+		'</a>';
+
+	// If Author is Administrator.
+	if( in_array( 'administrator', $user_roles ) ){
+		$html .= '<span class="author-name-icon" title="' . esc_attr__( 'Администратор', 'bydlokod' ) . '">
+			<i class="fa-solid fa-shield-halved"></i>
+		</span>';
+	}
+
+	return $html . '</div>';
+}
+

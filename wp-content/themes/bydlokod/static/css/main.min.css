@@ -6102,7 +6102,7 @@ h5, .h5,
 h6, .h6 {
   font-family: "Finlandica", Arial, sans-serif;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.3;
   margin: 0 0 1rem; }
 
 h1, .h1 {
@@ -6121,7 +6121,8 @@ h3, .h3 {
   font-size: 30px; }
 
 h4, .h4 {
-  font-size: 20px; }
+  font-size: 20px;
+  font-weight: 500; }
   @media all and (min-width: 480px) {
     h4, .h4 {
       font-size: 24px; } }
@@ -6134,12 +6135,10 @@ h6, .h6 {
 
 a {
   display: inline-block;
-  text-decoration: underline;
+  text-decoration: none;
   -webkit-transition: color ease-out 0.35s;
   -o-transition: color ease-out 0.35s;
   transition: color ease-out 0.35s; }
-  a:hover {
-    text-decoration: none; }
 
 p {
   margin-top: 0; }
@@ -6249,6 +6248,19 @@ ul {
   cursor: pointer; }
   .close:hover i {
     color: #9BABFF; }
+
+.img-cover-inside img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover; }
+
+.opacity-075-on-hover {
+  -webkit-transition: opacity ease-out 0.35s;
+  -o-transition: opacity ease-out 0.35s;
+  transition: opacity ease-out 0.35s; }
+  .opacity-075-on-hover:hover {
+    opacity: 0.75; }
 
 .button {
   display: -webkit-inline-box;
@@ -6451,17 +6463,135 @@ input {
 
 .post-preview {
   width: 100%;
-  padding: 0 20px; }
+  padding: 0 20px;
+  margin-top: 40px; }
   @media all and (min-width: 768px) {
     .post-preview {
       width: 50%; } }
+  .post-preview:first-child, .post-preview:nth-child(2) {
+    margin-top: 0; }
+  .post-preview-inner {
+    -webkit-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03); }
   .post-preview-thumb {
     width: 100%;
     height: 240px; }
-    .post-preview-thumb img {
+    .post-preview-thumb a {
       width: 100%;
-      height: 100%;
-      -o-object-fit: cover;
-         object-fit: cover; }
+      height: 100%; }
+  .post-preview-info {
+    padding: 10px 15px; }
+  .post-preview-title {
+    font-size: 20px;
+    margin-bottom: 10px; }
+    .post-preview-title a {
+      color: #323232; }
+      .post-preview-title a:hover {
+        color: #9BABFF; }
+  .post-preview-bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+  .post-preview-button:hover i {
+    color: #9BABFF; }
+  .post-preview-button i {
+    font-size: 24px;
+    color: #BCBCBC;
+    -webkit-transition: color ease-out 0.35s;
+    -o-transition: color ease-out 0.35s;
+    transition: color ease-out 0.35s; }
+
+.post-terms {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+.post-term {
+  font-size: 14px;
+  color: #BCBCBC;
+  margin: 0 10px 5px 0; }
+  .post-term:last-child {
+    margin-right: 0; }
+  .post-term:hover {
+    color: #9BABFF; }
+
+.post-date {
+  font-size: 12px;
+  line-height: 14px;
+  color: #BCBCBC;
+  margin-top: auto; }
+
+.post-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  .post-stats-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    color: #BCBCBC;
+    margin-right: 10px; }
+    .post-stats-item:last-child {
+      margin-right: 0; }
+    .post-stats-item.reactions {
+      color: #9BABFF;
+      cursor: pointer;
+      margin-left: 20px; }
+    .post-stats-item i {
+      margin-right: 5px; }
+
+.author-info {
+  margin-left: 10px; }
+
+.author-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #9BABFF; }
+  .author-avatar a {
+    width: 100%;
+    height: 100%; }
+  .author-avatar img {
+    border-radius: 50%; }
+
+.author-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 3px; }
+  .author-name-icon {
+    font-size: 14px;
+    line-height: 17px;
+    margin-left: 5px; }
+    .author-name-icon i {
+      color: #BCBCBC; }
+  .author-name a {
+    font-weight: 500;
+    line-height: 17px;
+    color: #323232; }
+
+.post-author {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 10px; }
 
 /*# sourceMappingURL=main.min.css.map */
