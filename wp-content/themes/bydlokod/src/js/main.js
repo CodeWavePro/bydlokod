@@ -7,3 +7,6 @@ import './common/search'
 
 // Post.
 import './post/ajax'
+
+// Authorization.
+import './auth/ajax'

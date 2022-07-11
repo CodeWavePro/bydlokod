@@ -13,9 +13,13 @@
 	text-align: center;
 	cursor: pointer;
 
+	i {
+		transition: color ease-out $tr
+	}
+
 	&:hover {
 		i {
-			color: $violet
+			color: $red
 		}
 	}
 }
@@ -41,6 +45,23 @@ span.loader {
 	top: 50%;
 	left: 100%;
 	transform: translate($spacer-xs, -50%);
+
+	&.centered {
+		left: 50%;
+		transform: translate(-50%, -50%)
+	}
+
+	&.lg {
+		i {
+			font-size: 40px
+		}
+	}
+
+	&.violet {
+		i {
+			color: $violet
+		}
+	}
 
 	i {
 		color: $lightgray;

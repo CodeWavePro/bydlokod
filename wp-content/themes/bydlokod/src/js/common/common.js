@@ -7,12 +7,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	renderSVGs( document )
 	focusLabels()
 	popupClose()
+	popupCloseOnClick()
 } )
 
 /**
  * Focus inputs inside specific labels.
  */
-const focusLabels = () => {
+export const focusLabels = () => {
 	const inputs = document.querySelectorAll( '.label-focus input' )
 
 	if( ! inputs.length ) return
@@ -20,15 +21,8 @@ const focusLabels = () => {
 	inputs.forEach( input => {
 		const label = input.parentElement
 
-		if( ! label ) return
-
-		input.addEventListener( 'focus', () => {
-			label.classList.add( 'focus' )
-		} )
-
-		input.addEventListener( 'blur', () => {
-			label.classList.remove( 'focus' )
-		} )
+		input.addEventListener( 'focus', () => label.classList.add( 'focus' ) )
+		input.addEventListener( 'blur', () => label.classList.remove( 'focus' ) )
 	} );
 }
 
@@ -48,6 +42,27 @@ const popupClose = () => {
 
 			popup.classList.add( 'hidden' )
 			enableBodyScroll( getTargetElement() )
+		} )
+	} )
+}
+
+/**
+ * Close popup if its area clicked.
+ */
+const popupCloseOnClick = () => {
+	const popups = document.querySelectorAll( '.popup' )
+
+	if( ! popups.length ) return
+
+	popups.forEach( popup => {
+		popup.addEventListener( 'click', e => {
+			e.stopPropagation()
+
+			// If popup area clicked.
+			if( e.target.classList.contains( 'popup' ) ){
+				enableBodyScroll( getTargetElement() )
+				popup.classList.add( 'hidden' )
+			}
 		} )
 	} )
 }
