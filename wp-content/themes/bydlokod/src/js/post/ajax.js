@@ -1,9 +1,14 @@
+import { disableBodyScroll } from 'body-scroll-lock'
 import {
 	getAjaxStatus,
 	setAjaxStatus,
 	bydloAjaxRequest,
-	createLoader
+	createLoader,
+	setTargetElement,
+	getTargetElement
 } from '../common/global'
+import { focusLabels } from '../common/common'
+import { login, openAnotherFormInsidePopup } from '../auth/ajax'
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	'use strict'
@@ -125,6 +130,23 @@ const clickPostLike = () => {
 
 						case false:
 							console.error( response.data.msg )
+
+							// If User is not logged in - show Login form in popup.
+							if( response.data.form ){
+								const authPopup = document.querySelector( '.popup-auth' )
+
+								if( ! authPopup ) break
+
+								const popupInner = authPopup.querySelector( '.popup-inner' )
+
+								setTargetElement( '#popup-auth' )
+								disableBodyScroll( getTargetElement(), { reserveScrollBarGap: true } )
+								popupInner.innerHTML = response.data.form
+								authPopup.classList.remove( 'hidden' )
+								focusLabels()
+								login()
+								openAnotherFormInsidePopup()
+							}
 							break
 					}
 				}

@@ -108,3 +108,23 @@ input {
 .form-submit {
 	text-align: center
 }
+
+.form-links {
+	width: 100%;
+	text-align: center;
+	margin-top: $spacer-sm;
+
+	span {
+		color: $lightgray;
+		margin: 0 5px
+	}
+}
+
+.form-link {
+	font-size: $fs-sm;
+	color: $lightgray;
+
+	&:hover {
+		color: $violet
+	}
+}

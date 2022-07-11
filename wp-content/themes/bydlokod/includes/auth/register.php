@@ -30,5 +30,15 @@
 
 		<?php wp_nonce_field( 'bydlo_ajax_register', 'bydlo_register_nonce' ) ?>
 	</fieldset>
+
+	<div class="form-links">
+		<a href="#" class="form-link login">
+			<?php esc_html_e( 'Вход', 'bydlokod' ) ?>
+		</a>
+		<span>|</span>
+		<a href="#" class="form-link lost-pass">
+			<?php esc_html_e( 'Я посеял пароль', 'bydlokod' ) ?>
+		</a>
+	</div>
 </form>
 

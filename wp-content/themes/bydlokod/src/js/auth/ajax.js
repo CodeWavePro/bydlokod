@@ -13,6 +13,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	'use strict'
 
 	openAuthPopup()
+	logout()
 } )
 
 /**
@@ -56,8 +57,64 @@ const openAuthPopup = () => {
 						case true:
 							popupInner.innerHTML = response.data.form
 							focusLabels()
-
 							type === 'login' ? login() : null
+							openAnotherFormInsidePopup()
+							break
+
+						case false:
+							popupInner.innerHTML = response.data.msg
+							break
+					}
+				}
+
+				setAjaxStatus( false )
+			} )
+		} )
+	} )
+}
+
+/**
+ * Open another form inside authorization popup on links click.
+ */
+export const openAnotherFormInsidePopup = () => {
+	const authLinks = document.querySelectorAll( '.form-link' ),
+		authPopup	= document.querySelector( '.popup-auth' )
+
+	if( ! authLinks.length || ! authPopup ) return
+
+	const popupInner = authPopup.querySelector( '.popup-inner' )
+
+	authLinks.forEach( link => {
+		link.addEventListener( 'click', e => {
+			e.preventDefault()
+
+			if( getAjaxStatus() ) return
+
+			setAjaxStatus( true )
+
+			const ajaxData	= new FormData(),
+				loader		= createLoader( 'centered lg violet' )
+			let type		= link.classList.contains( 'login' ) ? 'login' : 'register'
+
+			ajaxData.append( 'action', 'bydlo_ajax_show_auth_form' )
+			ajaxData.append( 'type', type )
+
+			// Show popup with loader.
+			setTargetElement( '#popup-auth' )
+			disableBodyScroll( getTargetElement(), { reserveScrollBarGap: true } )
+			popupInner.innerHTML = ''
+			popupInner.appendChild( loader )
+
+			bydloAjaxRequest( ajaxData ).then( response => {
+				if( response ){
+					loader.remove()
+
+					switch( response.success ){
+						case true:
+							popupInner.innerHTML = response.data.form
+							focusLabels()
+							type === 'login' ? login() : null
+							openAnotherFormInsidePopup()
 							break
 
 						case false:
@@ -75,7 +132,7 @@ const openAuthPopup = () => {
 /**
  * Login.
  */
-const login = () => {
+export const login = () => {
 	const form = document.querySelector( '.form-login' )
 
 	if( ! form ) return
@@ -102,6 +159,51 @@ const login = () => {
 				switch( response.success ){
 					case true:
 						console.log( response.data.msg )
+
+						if( response.data.redirect ) location.href = response.data.redirect
+						break
+
+					case false:
+						console.error( response.data.msg )
+						break
+				}
+			}
+
+			setAjaxStatus( false )
+		} )
+	} )
+}
+
+/**
+ * Logout.
+ */
+const logout = () => {
+	const link = document.querySelector( '.header-logout-link' )
+
+	if( ! link ) return
+
+	link.addEventListener( 'click', e => {
+		e.preventDefault()
+
+		if( getAjaxStatus() ) return
+
+		setAjaxStatus( true )
+
+		const formData	= new FormData(),
+			loader		= createLoader()
+
+		formData.append( 'action', 'bydlo_ajax_logout' )
+		link.appendChild( loader )
+
+		bydloAjaxRequest( formData ).then( response => {
+			if( response ){
+				loader.remove()
+
+				switch( response.success ){
+					case true:
+						console.log( response.data.msg )
+
+						if( response.data.redirect ) location.href = response.data.redirect
 						break
 
 					case false:

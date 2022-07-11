@@ -36,7 +36,7 @@ function bydlo_ajax_login(){
 
 	// If data is not set - send error.
 	if( ! $login || ! $pass )
-		wp_send_json_error( ['msg' => esc_html__( 'Неверные данные.2', 'bydlokod' )] );
+		wp_send_json_error( ['msg' => esc_html__( 'Неверные данные.', 'bydlokod' )] );
 
 	// If can't find such login or email - user not exists, send error.
 	if( ! username_exists( $login ) && ! email_exists( $login ) )
@@ -85,8 +85,21 @@ function bydlo_ajax_login(){
 	$redirect = home_url( '/' );
 
 	wp_send_json_success( [
-		'msg'		=> "Привет, $login!",
+		'msg'		=> sprintf( esc_html__( 'Привет, %s!', 'bydlokod' ), $login ),
 		'redirect'	=> $redirect
+	] );
+}
+
+add_action( 'wp_ajax_bydlo_ajax_logout', 'bydlo_ajax_logout' );
+/**
+ * Logout.
+ */
+function bydlo_ajax_logout(){
+	wp_logout();
+
+	wp_send_json_success( [
+		'msg'		=> esc_html__( 'Давай, до свидания!', 'bydlokod' ),
+		'redirect'	=> home_url( '/' )
 	] );
 }
 

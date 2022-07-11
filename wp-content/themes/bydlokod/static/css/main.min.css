@@ -6436,11 +6436,11 @@ span.loader {
     position: relative;
     width: 100%;
     max-width: 500px;
+    min-height: 100px;
     border-radius: 10px;
     background-color: #FFFFFF;
     -webkit-box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
             box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.03);
-    padding: 30px;
     margin: auto 0; }
   .popup .searchform {
     width: 100%;
@@ -6542,6 +6542,20 @@ input {
 .form-submit {
   text-align: center; }
 
+.form-links {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px; }
+  .form-links span {
+    color: #BCBCBC;
+    margin: 0 5px; }
+
+.form-link {
+  font-size: 14px;
+  color: #BCBCBC; }
+  .form-link:hover {
+    color: #9BABFF; }
+
 .header {
   background-color: #FFFFFF;
   padding: 15px 0;
@@ -6572,6 +6586,8 @@ input {
 
 .header-search {
   margin-left: auto; }
+  .header-search:hover > i {
+    color: #9BABFF; }
   .header-search i {
     cursor: pointer;
     -webkit-transition: color ease-out 0.35s;
@@ -6622,16 +6638,25 @@ input {
       .header-auth-link.register:hover {
         color: #9BABFF; }
 
-.form-login label,
-.form-register label {
-  margin-bottom: 10px; }
-  .form-login label:last-of-type,
-  .form-register label:last-of-type {
-    margin-bottom: 0; }
+.header-logout-link {
+  position: relative;
+  color: #BCBCBC;
+  text-decoration: none; }
+  .header-logout-link:hover {
+    color: #9BABFF; }
 
-.form-login .form-submit,
-.form-register .form-submit {
-  margin-top: 30px; }
+.form-login,
+.form-register {
+  padding: 30px 30px 20px; }
+  .form-login label,
+  .form-register label {
+    margin-bottom: 10px; }
+    .form-login label:last-of-type,
+    .form-register label:last-of-type {
+      margin-bottom: 0; }
+  .form-login .form-submit,
+  .form-register .form-submit {
+    margin-top: 30px; }
 
 .sidebar {
   width: 100%;

@@ -1,14 +1,16 @@
 .form-login,
 .form-register {
-    label {
-        margin-bottom: $spacer-xs;
+	padding: $spacer-md $spacer-md $spacer-sm;
 
-        &:last-of-type {
-            margin-bottom: 0
-        }
-    }
+	label {
+		margin-bottom: $spacer-xs;
 
-    .form-submit {
-        margin-top: $spacer-md
-    }
+		&:last-of-type {
+			margin-bottom: 0
+		}
+	}
+
+	.form-submit {
+		margin-top: $spacer-md
+	}
 }
