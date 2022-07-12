@@ -6509,6 +6509,8 @@ label {
       font-size: 15px;
       color: #9BABFF;
       opacity: 0; }
+  label.error input {
+    border-bottom-color: #FF3E3E; }
 
 input {
   font-family: "Finlandica", Arial, sans-serif;
@@ -6555,6 +6557,14 @@ input {
   color: #BCBCBC; }
   .form-link:hover {
     color: #9BABFF; }
+
+.form-message {
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  color: #FF3E3E; }
+  .form-message.success {
+    color: #00FF47; }
 
 .header {
   background-color: #FFFFFF;

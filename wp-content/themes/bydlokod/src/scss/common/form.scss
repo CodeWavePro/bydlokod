@@ -69,6 +69,12 @@ label {
 			opacity: 0
 		}
 	}
+
+	&.error {
+		input {
+			border-bottom-color: $red
+		}
+	}
 }
 
 input {
@@ -126,5 +132,16 @@ input {
 
 	&:hover {
 		color: $violet
+	}
+}
+
+.form-message {
+	width: 100%;
+	margin-top: $spacer-sm;
+	text-align: center;
+	color: $red;
+
+	&.success {
+		color: $green
 	}
 }

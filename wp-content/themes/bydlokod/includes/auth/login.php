@@ -25,6 +25,8 @@
 			</span>
 		</label>
 
+		<div class="form-message"></div>
+
 		<div class="form-submit">
 			<button class="button lg rounded violet" type="submit">
 				<?php esc_html_e( 'Войти', 'bydlokod' ) ?>

@@ -28,19 +28,31 @@ add_action( 'wp_ajax_nopriv_bydlo_ajax_login', 'bydlo_ajax_login' );
  */
 function bydlo_ajax_login(){
 	if( empty( $_POST ) || ! wp_verify_nonce( $_POST['bydlo_login_nonce'], 'bydlo_ajax_login' ) )
-		wp_send_json_error( ['msg' => esc_html__( 'Неверные данные.', 'bydlokod' )] );
+		wp_send_json_error( ['msg' => __( '<b>Ошибка:</b> Неверные данные.', 'bydlokod' )] );
 
 	$login		= bydlo_clean( $_POST['login'] );
 	$pass		= bydlo_clean_pass( $_POST['pass'] );
 	$remember	= bydlo_clean( $_POST['remember-me'] ) ? true : false;
+	$errors		= [];
 
-	// If data is not set - send error.
-	if( ! $login || ! $pass )
-		wp_send_json_error( ['msg' => esc_html__( 'Неверные данные.', 'bydlokod' )] );
+	// If data is not set - add errors.
+	if( ! $login || ! $pass ){
+		if( ! $login ) $errors[] = 'login';
+
+		if( ! $pass ) $errors[] = 'pass';
+
+		wp_send_json_error( [
+			'msg'		=> __( '<b>Ошибка:</b> Неверные данные.', 'bydlokod' ),
+			'errors'	=> json_encode( $errors )
+		] );
+	}
 
 	// If can't find such login or email - user not exists, send error.
 	if( ! username_exists( $login ) && ! email_exists( $login ) )
-		wp_send_json_error( ['msg' => esc_html__( 'Такой Пользователь не существует.', 'bydlokod' )] );
+		wp_send_json_error( [
+			'msg'		=> __( '<b>Ошибка:</b> Такой Пользователь не существует.', 'bydlokod' ),
+			'errors'	=> json_encode( ['login'] )
+		] );
 
 	// First - trying to find user by login field.
 	$user = get_user_by( 'login', $login );
@@ -51,7 +63,10 @@ function bydlo_ajax_login(){
 
 		// If fail again - user not found, send error.
 		if( ! $user )
-			wp_send_json_error( ['msg' => esc_html__( 'Ошибка во время получения данных Пользователя.', 'bydlokod' )] );
+			wp_send_json_error( [
+				'msg'		=> __( '<b>Ошибка:</b> Не удалось получить данные Пользователя.', 'bydlokod' ),
+				'errors'	=> json_encode( ['login'] )
+			] );
 	}
 
 	// Get user ID for user data.
@@ -59,14 +74,17 @@ function bydlo_ajax_login(){
 
 	// If User have not activated accout yet - send error.
 	if( get_user_meta( $user_id, 'has_to_be_activated', true ) != false )
-		wp_send_json_error( ['msg' => esc_html__( 'Аккаунт не активирован. Пожалуйста, проверьте указанную при создании Вашего аккаунта почту на предмет письма со ссылкой на активацию. Если письма нет во "Входящих" - не забудьте проверить также "Спам".', 'bydlokod' )] );
+		wp_send_json_error( ['msg' => __( '<b>Ошибка:</b> Аккаунт не активирован. Пожалуйста, проверьте указанную при создании Вашего аккаунта почту на предмет письма со ссылкой на активацию. Если письма нет во "Входящих" - не забудьте проверить также "Спам".', 'bydlokod' )] );
 
 	$user_data	= get_userdata( $user_id )->data;
 	$hash		= $user_data->user_pass;
 
 	// If passwords are not equal - send error.
 	if( ! wp_check_password( $pass, $hash, $user_id ) )
-		wp_send_json_error( ['msg' => esc_html__( 'Неверный пароль. ', 'bydlokod' )] );
+		wp_send_json_error( [
+			'msg'		=> __( '<b>Ошибка:</b> Неверный пароль. ', 'bydlokod' ),
+			'errors'	=> json_encode( ['pass'] )
+		] );
 
 	// If all is OK - trying to sign user on.
 	$creds = [
@@ -85,7 +103,7 @@ function bydlo_ajax_login(){
 	$redirect = home_url( '/' );
 
 	wp_send_json_success( [
-		'msg'		=> sprintf( esc_html__( 'Привет, %s!', 'bydlokod' ), $login ),
+		'msg'		=> sprintf( esc_html__( 'Привет, %s! Перезагрузка...', 'bydlokod' ), $login ),
 		'redirect'	=> $redirect
 	] );
 }

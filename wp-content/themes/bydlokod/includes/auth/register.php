@@ -22,6 +22,8 @@
 			<input id="pass2" type="text" name="pass2" placeholder="<?php esc_attr_e( 'Повторите пароль', 'bydlokod' ) ?>" />
 		</label>
 
+		<div class="form-message"></div>
+
 		<div class="form-submit">
 			<button class="button lg rounded violet" type="submit">
 				<?php esc_html_e( 'Зарегистрироваться', 'bydlokod' ) ?>

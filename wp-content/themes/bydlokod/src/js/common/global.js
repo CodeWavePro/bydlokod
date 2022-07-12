@@ -126,3 +126,21 @@ export const createLoader = ( extraClass = '' ) => {
 
 	return loader
 }
+
+/**
+ * Highlight invalid form fields.
+ *
+ * @param {Array}		errors	Array of invalid fields (IDs).
+ * @param {HTMLObject}	form	In which forms these fields are placed.
+ */
+export const processFormErrors = ( errors, form ) => {
+	if( ! errors.length || ! form ) return
+
+	errors.forEach( fieldId => {
+		const field = form.querySelector( `#${fieldId}` )
+
+		if( ! field ) return
+
+		field.closest( 'label' ).classList.add( 'error' )
+	} )
+}

@@ -5,7 +5,8 @@ import {
 	bydloAjaxRequest,
 	createLoader,
 	setTargetElement,
-	getTargetElement
+	getTargetElement,
+	processFormErrors
 } from '../common/global'
 import { focusLabels } from '../common/common'
 
@@ -146,11 +147,23 @@ export const login = () => {
 
 		const formData	= new FormData( form ),
 			button		= form.querySelector( '.button[type="submit"]' ),
+			msg			= form.querySelector( '.form-message' ),
 			loader		= createLoader()
 
 		formData.append( 'action', 'bydlo_ajax_login' )
 		formData.append( 'form_data', formData )
 		button.appendChild( loader )
+
+		// Clear form message.
+		// TODO: move to another export like forms.js.
+		if( msg ){
+			msg.classList.remove( 'success' )
+			msg.innerHTML = ''
+		}
+
+		// Clear form error classes.
+		// TODO: move to another export like forms.js.
+		form.querySelectorAll( 'label.error' ).forEach( label => label.classList.remove( 'error' ) )
 
 		bydloAjaxRequest( formData ).then( response => {
 			if( response ){
@@ -158,13 +171,25 @@ export const login = () => {
 
 				switch( response.success ){
 					case true:
-						console.log( response.data.msg )
+						// TODO: move to another export like forms.js.
+						if( msg ){
+							msg.classList.add( 'success' )
+							msg.innerHTML = response.data.msg
+						}
 
 						if( response.data.redirect ) location.href = response.data.redirect
 						break
 
 					case false:
 						console.error( response.data.msg )
+
+						// TODO: move to another export like forms.js.
+						if( msg ) msg.innerHTML = response.data.msg
+
+						// If has errors.
+						if( response.data.errors.length )
+							processFormErrors( JSON.parse( response.data.errors ), form )
+
 						break
 				}
 			}
