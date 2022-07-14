@@ -1,0 +1,47 @@
+.like-animation {
+	animation: add-like linear 1 750ms
+}
+
+@keyframes add-like {
+	25% {
+		transform: scale(1.5)
+	}
+	50% {
+		transform: scale(1.2)
+	}
+	75% {
+		transform: scale(1.3)
+	}
+	100% {
+		transform: scale(1)
+	}
+}
+
+.dislike-animation {
+	animation: remove-like linear 1 750ms
+}
+
+@keyframes remove-like {
+	25% {
+		transform: scale(1.5);
+		opacity: 0.75
+	}
+	50% {
+		transform: scale(1.2);
+		opacity: 0.35
+	}
+	75% {
+		transform: scale(1.3);
+		opacity: 0.15
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0
+	}
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(360deg)
+	}
+}

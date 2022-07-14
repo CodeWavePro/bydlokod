@@ -22,8 +22,13 @@ function load_theme_dependencies(){
 
 	// Please place all custom functions declarations in this file.
 	require_once( 'theme-functions/theme-functions.php' );
+
 	// CarbonFields settings file.
 	require_once( 'carbon-fields/settings.php' );
+
+	// AJAX.
+	require_once( 'theme-functions/ajax.php' );
+	require_once( 'theme-functions/auth/ajax.php' );
 }
 
 /**

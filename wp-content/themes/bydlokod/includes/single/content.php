@@ -12,6 +12,8 @@ $post_id = get_the_ID();
 
 // If this is NOT single post page - do nothing.
 if( ! is_singular( 'post' ) ) return;
+
+bydlo_set_post_views_count( $post_id );
 ?>
 
 <article class="single-post post-<?php echo esc_attr( $post_id ) ?>">

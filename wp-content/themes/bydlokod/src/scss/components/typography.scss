@@ -4,8 +4,8 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
-	font-family: $ff-title;
-	font-weight: $fw-bold;
+	font-family: $ff;
+	font-weight: $fw-semibold;
 	line-height: $lh-title;
 	margin: 0 0 1rem
 }
@@ -14,7 +14,7 @@ h1, .h1 {
 	font-size: 32px;
 
 	@media all and (min-width: $sm) {
-		font-size: 60px
+		font-size: 36px
 	}
 }
 
@@ -22,7 +22,7 @@ h2, .h2 {
 	font-size: 24px;
 
 	@media all and (min-width: $sm) {
-		font-size: 32px
+		font-size: 36px
 	}
 }
 
@@ -32,9 +32,10 @@ h3, .h3 {
 
 h4, .h4 {
 	font-size: $fs-xl;
+	font-weight: $fw-medium;
 
 	@media all and (min-width: $sm) {
-		font-size: 24px;
+		font-size: 24px
 	}
 }
 
@@ -48,12 +49,8 @@ h6, .h6 {
 
 a {
 	display: inline-block;
-	text-decoration: underline;
-	transition: color ease-out $tr;
-
-	&:hover {
-		text-decoration: none
-	}
+	text-decoration: none;
+	transition: color ease-out $tr
 }
 
 p {
@@ -66,4 +63,12 @@ p {
 
 b, strong {
 	font-weight: $fw-bold
+}
+
+.main-title {
+	margin-bottom: 18px;
+
+	h1 {
+		margin-bottom: 0
+	}
 }

@@ -1,18 +1,46 @@
+// Libs & modules.
+@import '../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/brands.min';
+@import '../../node_modules/@fortawesome/fontawesome-free/css/solid.min';
+
 // Theme components.
+@import 'components/fonts';
 @import 'components/vars';
 @import 'components/typography';
 @import 'components/grid';
 @import 'components/mixins';
+@import 'components/animations';
 
 // Theme base styles.
 @import 'components/base';
+@import 'components/helpers';
+@import 'common/buttons';
 @import 'common/menu';
+@import 'common/popup';
+@import 'common/form';
 
-// Theme Header styles.
+// Theme Header.
 @import 'common/header/header';
 @import 'common/header/logo';
+@import 'common/header/search';
 @import 'common/header/menu';
+@import 'common/header/button';
+@import 'common/header/auth';
 
-// Theme Footer styles.
+// Theme Footer.
 @import 'common/footer/footer';
 @import 'common/footer/menu';
+
+// Authorization.
+@import 'auth/auth';
+
+// Sidebar.
+@import 'common/sidebar/sidebar';
+
+// Main posts.
+@import 'common/main-posts';
+
+// Post.
+@import 'post/preview';
+@import 'post/author';
+@import 'post/stats';

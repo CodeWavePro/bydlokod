@@ -17,7 +17,7 @@ body {
 	font-family: $ff;
 	font-size: $fs-md;
 	line-height: $lh;
-	color: $black;
+	color: $dark;
 	background-color: $white
 }
 
@@ -42,5 +42,17 @@ ul {
 
 	.footer {
 		margin-top: auto
+	}
+}
+
+.main-wrapper-inner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding-top: $spacer-lg;
+
+	.main {
+		width: 100%;
+		max-width: calc(100% - 370px)	// 330 - sidebar, 40 - space between.
 	}
 }

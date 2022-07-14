@@ -1,3 +1,9 @@
+export const TRANSITION_DURATION = 350,
+	ajaxUrl = window.wpData.ajaxUrl
+
+let ajaxStatus = false,
+	targetElement
+
 /**
  * Render SVG code from images (<img /> tags).
  *
@@ -41,5 +47,100 @@ export const renderSVGs = ( wrapper, imgSelector = '' ) => {
 				// If the svg is found, replace the image with the svg.
 				if( svgTag ) svg.replaceWith( svgTag )
 			} )
+	} )
+}
+
+/**
+ * Set variable for disableScrollLock.
+ *
+ * @param	{String}	elementId	Specific element ID.
+ * @returns	{Boolean}				True if element is set, false if not.
+ */
+export const setTargetElement = elementId => {
+	targetElement = document.querySelector( elementId )
+
+	if( ! targetElement ) return false
+
+	return true
+}
+
+/**
+ * Get element for disableScrollLock.
+ *
+ * @returns targetElement value.
+ */
+export const getTargetElement = () => {
+	return targetElement
+}
+
+/**
+ * Get AJAX working status: is in work now or not.
+ *
+ * @returns	{Boolean} AJAX working status.
+ */
+export const getAjaxStatus = () => ajaxStatus
+
+/**
+ * Set AJAX working status: is in work now or not.
+ *
+ * @param	{Boolean}	state	Working status - true or false.
+ * @returns	{Boolean}			True on success, false on failure.
+ */
+export const setAjaxStatus = state => {
+	if( typeof state === 'boolean' ) ajaxStatus = state
+	else return false
+
+	return true
+}
+
+/**
+ * Custom AJAX request.
+ *
+ * @param	{Object}	formData	Data for fetch body.
+ * @returns	{Array}					Reponse data array.
+ */
+export const bydloAjaxRequest = async formData => {
+	let response = await fetch( ajaxUrl, {
+		method		: 'post',
+		credentials	: 'same-origin',
+		body		: formData
+	} )
+	let data = await response.json()
+
+	return data
+}
+
+/**
+ * Create loader HTML Object.
+ *
+ * @param	{String}		extraClass	Class for loader.
+ * @returns {HTMLObject}	loader		HTML Object to insert in some block/element.
+ */
+export const createLoader = ( extraClass = '' ) => {
+	const loader = document.createElement( 'span' )
+
+	loader.classList.add( 'loader' )
+	loader.innerHTML = '<i class="fa-solid fa-circle-notch"></i>'
+
+	if( extraClass ) loader.classList.add( ...extraClass.split( ' ' ) )
+
+	return loader
+}
+
+/**
+ * Highlight invalid form fields.
+ *
+ * @param {Array}		errors	Array of invalid fields (IDs).
+ * @param {HTMLObject}	form	In which forms these fields are placed.
+ */
+export const processFormErrors = ( errors, form ) => {
+	if( ! errors.length || ! form ) return
+
+	errors.forEach( fieldId => {
+		const field = form.querySelector( `#${fieldId}` )
+
+		if( ! field ) return
+
+		field.closest( 'label' ).classList.add( 'error' )
 	} )
 }

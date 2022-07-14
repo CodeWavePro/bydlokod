@@ -1,6 +1,11 @@
 .header {
-    &-inner {
-        display: flex;
-        flex-wrap: wrap
-    }
+	background-color: $white;
+	padding: 15px 0;
+	box-shadow: $shadow;
+
+	&-inner {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center
+	}
 }

@@ -9,8 +9,9 @@
  * @subpackage bydlokod
  */
 
-// Theme URI for favicon and etc.
-$uri = get_template_directory_uri();
+global $page, $paged;
+
+$uri = get_template_directory_uri();	// Theme URI for favicon and etc.
 ?>
 
 <!doctype html>
@@ -26,8 +27,6 @@ $uri = get_template_directory_uri();
 
 	<title>
 		<?php
-		global $page, $paged;
-
 		wp_title( '|', true, 'right' );
 		bloginfo( 'name' );
 		$site_description = get_bloginfo( 'description', 'display' );
@@ -41,6 +40,13 @@ $uri = get_template_directory_uri();
 	</title>
 
 	<!-- FAVICON -->
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo $uri ?>/favicon/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo $uri ?>/favicon/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo $uri ?>/favicon/favicon-16x16.png" />
+	<link rel="manifest" href="<?php echo $uri ?>/favicon/site.webmanifest" />
+	<link rel="mask-icon" href="<?php echo $uri ?>/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+	<meta name="msapplication-TileColor" content="#da532c" />
+	<meta name="theme-color" content="#ffffff" />
 	<!-- /FAVICON -->
 
 	<?php wp_head() ?>
@@ -55,7 +61,10 @@ $uri = get_template_directory_uri();
 				<div class="header-inner">
 					<?php
 					get_template_part( 'includes/common/header/logo' );
+					get_template_part( 'includes/common/header/search' );
 					get_template_part( 'includes/common/header/menu' );
+					get_template_part( 'includes/common/header/button' );
+					get_template_part( 'includes/common/header/auth' );
 					?>
 				</div>
 			</div>

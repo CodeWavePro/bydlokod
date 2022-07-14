@@ -7,8 +7,7 @@ $xl	: 1200px;
 $xxl: 1366px;
 
 // Font families.
-$ff			: Arial, sans-serif;
-$ff-title	: Arial, sans-serif;
+$ff: 'Finlandica', Arial, sans-serif;
 
 // Font sizes.
 $fs-xs	: 12px;
@@ -18,22 +17,36 @@ $fs-lg	: 18px;
 $fs-xl	: 20px;
 
 // Font weights.
-$fw-light		: 300;
-$fw-regular		: 400;
-$fw-medium		: 500;
-$fw-semibold	: 600;
-$fw-bold		: 700;
-$fw-extrabold	: 800;
-$fw-black		: 900;
+$fw-regular	: 400;
+$fw-medium	: 500;
+$fw-semibold: 600;
+$fw-bold	: 700;
 
 // Line heights.
-$lh			: 1.4;
-$lh-title	: 1.2;
+$lh			: 1.5;
+$lh-title	: 1.3;
 
 // Colors.
-$white	: #fff;
-$black	: #000;
+$white		: #FFFFFF;
+$lightgray	: #BCBCBC;
+$dark		: #323232;
+$violet		: #9BABFF;
+$red		: #FF3E3E;
+$green      : #00FF47;
+
+// Spacers.
+$spacer-xs	: 10px;
+$spacer-sm	: 20px;
+$spacer-md	: 30px;
+$spacer-lg	: 40px;
+$spacer-xl	: 50px;
+$spacer-xxl	: 60px;
 
 // Others.
-$tr		: 0.35s;
-$radius	: 5px;
+$tr				: 0.35s;
+$radius			: 10px;
+$radius-1		: 12px;
+$radius-2		: 3px;
+$shadow			: 0 0 10px 10px rgba(0, 0, 0, 0.03);
+$shadow-1		: 0 0 10px 10px rgba(0, 0, 0, 0.1);
+$shadow-inset	: inset 0 0 10px 3px rgba(95, 36, 163, 0.2);

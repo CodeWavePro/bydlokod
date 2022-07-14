@@ -1,0 +1,38 @@
+.button {
+	position: relative;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-family: $ff;
+	font-size: $fs-sm;
+	font-weight: $fw-semibold;
+	line-height: $lh;
+	color: $white;
+	border: none;
+	background-color: transparent;
+	padding: 7px 15px;
+	cursor: pointer;
+	transition: box-shadow ease-out $tr;
+
+	&:hover {
+		box-shadow: $shadow-inset
+	}
+
+	&.lg {
+		min-width: 180px;
+		font-size: $fs-md;
+		padding: 13px 18px
+	}
+
+	&.rounded {
+		border-radius: $radius
+	}
+
+	&.lightgray {
+		background-color: $lightgray
+	}
+
+	&.violet {
+		background-color: $violet
+	}
+}
