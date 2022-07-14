@@ -13,10 +13,10 @@
 		<legend><?php esc_html_e( 'Вход', 'bydlokod' ) ?></legend>
 
 		<label for="login" class="label-focus">
-			<input id="login" type="text" name="login" placeholder="<?php esc_attr_e( 'Логин / почта', 'bydlokod' ) ?>" />
+			<input id="login" type="text" name="login" placeholder="<?php esc_attr_e( 'Логин / почта *', 'bydlokod' ) ?>" />
 		</label>
 		<label for="pass" class="label-focus">
-			<input id="pass" type="text" name="pass" placeholder="<?php esc_attr_e( 'Пароль', 'bydlokod' ) ?>" />
+			<input id="pass" type="text" name="pass" placeholder="<?php esc_attr_e( 'Пароль *', 'bydlokod' ) ?>" />
 		</label>
 		<input id="remember-me" type="checkbox" name="remember-me" />
 		<label for="remember-me" class="label-for-checkbox">

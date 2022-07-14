@@ -59,7 +59,10 @@ const openAuthPopup = () => {
 						case true:
 							popupInner.innerHTML = response.data.form
 							focusLabels()
-							type === 'login' ? login() : null
+
+							if( type === 'login' ) login()
+							else register()
+
 							openAnotherFormInsidePopup()
 							break
 
@@ -173,7 +176,7 @@ export const login = () => {
 						setFormMessage( msg, response.data.msg )
 
 						// If has errors.
-						if( response.data.errors.length )
+						if( response.data.errors && response.data.errors.length )
 							processFormErrors( JSON.parse( response.data.errors ), form )
 
 						break
@@ -219,6 +222,58 @@ const logout = () => {
 
 					case false:
 						console.error( response.data.msg )
+						break
+				}
+			}
+
+			setAjaxStatus( false )
+		} )
+	} )
+}
+
+/**
+ * Registration.
+ */
+export const register = () => {
+	const form = document.querySelector( '.form-register' )
+
+	if( ! form ) return
+
+	form.addEventListener( 'submit', e => {
+		e.preventDefault()
+
+		if( getAjaxStatus() ) return
+
+		setAjaxStatus( true )
+
+		const formData	= new FormData( form ),
+			button		= form.querySelector( '.button[type="submit"]' ),
+			msg			= form.querySelector( '.form-message' ),
+			loader		= createLoader()
+
+		formData.append( 'action', 'bydlo_ajax_register' )
+		formData.append( 'form_data', formData )
+		button.appendChild( loader )
+		clearFormMessage( msg )
+		clearFormErrorClasses( form )
+
+		bydloAjaxRequest( formData ).then( response => {
+			if( response ){
+				loader.remove()
+
+				switch( response.success ){
+					case true:
+						setFormMessage( msg, response.data.msg, true )
+						break
+
+					case false:
+						console.error( response.data.msg )
+						setFormMessage( msg, response.data.msg )
+
+						// If has errors.
+						if( response.data.errors && response.data.errors.length )
+							processFormErrors( JSON.parse( response.data.errors ), form )
+
 						break
 				}
 			}

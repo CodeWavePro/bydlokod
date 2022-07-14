@@ -24,12 +24,12 @@ Container::make( 'theme_options', __( 'Настройки темы' ) )
 		Field::make( 'text', 'home_title_text', __( 'Заголовок постов' ) )
 	] )
 
-	/*->add_tab( __( 'Авторизация' ), [
-		Field::make( 'rich_text', 'account_activation_email' . rp_get_carbon_lang_ending(), __( 'Account Activation E-mail Text' ) )
-			->set_help_text( __( 'Placeholders: [user_login], [link].' ) )
-			->set_width( 34 ),
+	->add_tab( __( 'Авторизация' ), [
+		Field::make( 'rich_text', 'account_activation_email', __( 'Письмо для активации аккаунта' ) )
+			->set_help_text( __( 'Плэйсхолдеры: [user_login], [code].' ) )
+	] );
 
-		Field::make( 'rich_text', 'auth_lost_pass_email' . rp_get_carbon_lang_ending(), __( 'Lost Password E-mail Text' ) )
+	/*	Field::make( 'rich_text', 'auth_lost_pass_email' . rp_get_carbon_lang_ending(), __( 'Lost Password E-mail Text' ) )
 			->set_help_text( __( 'Placeholders: [user_login], [link].' ) )
 			->set_width( 33 ),
 
@@ -41,5 +41,5 @@ Container::make( 'theme_options', __( 'Настройки темы' ) )
 	->add_tab( __( 'Profile' ), [
 		Field::make( 'rich_text', 'email_change_email' . rp_get_carbon_lang_ending(), __( 'Change E-mail Text' ) )
 			->set_help_text( __( 'Placeholders: ###USERNAME###, ###FIRST_NAME###, ###LAST_NAME###, ###ADMIN_EMAIL###, ###EMAIL###, ###SITENAME###, ###SITEURL###.' ) )
-	] )*/;
+	] );*/
 

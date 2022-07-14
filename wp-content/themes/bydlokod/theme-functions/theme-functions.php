@@ -419,3 +419,34 @@ function bydlo_get_template_part( string $template_name, string $part_name = nul
 	return $content;
 }
 
+/**
+ * Check for errors on new User creation.
+ *
+ * @param	Object	$new_user_id	New registered User object.
+ */
+function bydlo_check_errors_on_user_creation( Object $new_user_id )
+{
+	switch( $new_user_id->get_error_code() ){
+		case 'existing_user_email':
+			wp_send_json_error( [
+				'msg'		=> __( '<b>Ошибка:</b> Эта почта занята другим Пользователем.', 'bydlokod' ),
+				'errors'	=> json_encode( ['email'] )
+			] );
+
+		case 'existing_user_login':
+			wp_send_json_error( [
+				'msg'		=> __( '<b>Ошибка:</b> Этот логин занят другим Пользователем.', 'bydlokod' ),
+				'errors'	=> json_encode( ['login'] )
+			] );
+
+		case 'empty_user_login':
+			wp_send_json_error( [
+				'msg'		=> __( '<b>Ошибка:</b> Используйте только латиницу для логина.', 'bydlokod' ),
+				'errors'	=> json_encode( ['login'] )
+			] );
+
+		default:
+			wp_send_json_error( ['msg' => sprintf( __( '<b>Ошибка:</b> %s', 'bydlokod' ), $new_user_id->get_error_message() )] );
+	}
+}
+
