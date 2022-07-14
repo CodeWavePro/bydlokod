@@ -21,3 +21,13 @@
 		}
 	}
 }
+
+.header-logout-link {
+	position: relative;
+	color: $lightgray;
+	text-decoration: none;
+
+	&:hover {
+		color: $violet
+	}
+}

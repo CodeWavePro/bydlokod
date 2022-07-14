@@ -113,13 +113,34 @@ export const bydloAjaxRequest = async formData => {
 /**
  * Create loader HTML Object.
  *
- * @returns {HTMLObject}	loader	HTML Object to insert in some block/element.
+ * @param	{String}		extraClass	Class for loader.
+ * @returns {HTMLObject}	loader		HTML Object to insert in some block/element.
  */
-export const createLoader = () => {
+export const createLoader = ( extraClass = '' ) => {
 	const loader = document.createElement( 'span' )
 
 	loader.classList.add( 'loader' )
 	loader.innerHTML = '<i class="fa-solid fa-circle-notch"></i>'
 
+	if( extraClass ) loader.classList.add( ...extraClass.split( ' ' ) )
+
 	return loader
+}
+
+/**
+ * Highlight invalid form fields.
+ *
+ * @param {Array}		errors	Array of invalid fields (IDs).
+ * @param {HTMLObject}	form	In which forms these fields are placed.
+ */
+export const processFormErrors = ( errors, form ) => {
+	if( ! errors.length || ! form ) return
+
+	errors.forEach( fieldId => {
+		const field = form.querySelector( `#${fieldId}` )
+
+		if( ! field ) return
+
+		field.closest( 'label' ).classList.add( 'error' )
+	} )
 }

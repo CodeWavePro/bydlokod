@@ -21,8 +21,8 @@ function bydlo_ajax_set_post_likes(){
 	// Only logged in User can add/remove his reaction.
 	if( ! is_user_logged_in() ){
 		wp_send_json_error( [
-			'msg'			=> esc_html__( 'Пользователь не залогинен.', 'bydlokod' ),
-			'must_login'	=> 1
+			'msg'	=> esc_html__( 'Пользователь не залогинен.', 'bydlokod' ),
+			'form'	=> bydlo_get_template_part( 'includes/auth/login' )
 		] );
 	}
 
@@ -32,9 +32,9 @@ function bydlo_ajax_set_post_likes(){
 	$likes_count	= $process['count'];
 
 	if( $reaction === 'like' )
-		$msg = esc_html__( 'Вам понравился пост. Спасибо за реакцию! \(^_^)/', 'bydlokod' );
+		$msg = esc_html__( 'Тебе понравился пост! Спасибо за реакцию! \(^_^)/', 'bydlokod' );
 	else
-		$msg = esc_html__( 'Вам не понравился пост. Жаль... (Т_Т)', 'bydlokod' );
+		$msg = esc_html__( 'Тебе не понравился пост? Напиши лучше! \(^_^)/', 'bydlokod' );
 
 	wp_send_json_success( [
 		'msg'	=> $msg,

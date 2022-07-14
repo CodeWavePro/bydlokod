@@ -1,0 +1,16 @@
+.form-login,
+.form-register {
+	padding: $spacer-md $spacer-md $spacer-sm;
+
+	label {
+		margin-bottom: $spacer-xs;
+
+		&:last-of-type {
+			margin-bottom: 0
+		}
+	}
+
+	.form-submit {
+		margin-top: $spacer-md
+	}
+}
