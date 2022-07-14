@@ -10,8 +10,8 @@
  */
 
 global $page, $paged;
-
-$uri = get_template_directory_uri();	// Theme URI for favicon and etc.
+// Theme URI for favicon and etc.
+$uri = get_template_directory_uri();
 ?>
 
 <!doctype html>
