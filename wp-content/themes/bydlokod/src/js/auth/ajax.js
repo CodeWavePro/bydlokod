@@ -9,13 +9,20 @@ import {
 	processFormErrors
 } from '../common/global'
 import { focusLabels } from '../common/common'
-import { clearFormMessage, clearFormErrorClasses, setFormMessage } from '../common/forms'
+import {
+	clearFormMessage,
+	clearFormErrorClasses,
+	setFormMessage,
+	togglePasswordVisibilityInInput
+} from '../common/forms'
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	'use strict'
 
 	openAuthPopup()
-	logout()
+
+	// Logout - only for logged in Users.
+	if( document.body.classList.contains( 'logged-in' ) ) logout()
 } )
 
 /**
@@ -63,6 +70,7 @@ const openAuthPopup = () => {
 							if( type === 'login' ) login()
 							else register()
 
+							togglePasswordVisibilityInInput()
 							openAnotherFormInsidePopup()
 							break
 
@@ -118,7 +126,11 @@ export const openAnotherFormInsidePopup = () => {
 						case true:
 							popupInner.innerHTML = response.data.form
 							focusLabels()
-							type === 'login' ? login() : null
+
+							if( type === 'login' ) login()
+							else register()
+
+							togglePasswordVisibilityInInput()
 							openAnotherFormInsidePopup()
 							break
 
@@ -235,7 +247,9 @@ const logout = () => {
  * Registration.
  */
 export const register = () => {
-	const form = document.querySelector( '.form-register' )
+	const form		= document.querySelector( '.form-register' ),
+		authPopup	= document.querySelector( '.popup-auth' ),
+		popupInner	= authPopup.querySelector( '.popup-inner' )
 
 	if( ! form ) return
 
@@ -264,6 +278,67 @@ export const register = () => {
 				switch( response.success ){
 					case true:
 						setFormMessage( msg, response.data.msg, true )
+						setTimeout( () => {
+							popupInner.innerHTML = response.data.form
+							focusLabels()
+							activate()
+						}, 1000 );
+						break
+
+					case false:
+						console.error( response.data.msg )
+						setFormMessage( msg, response.data.msg )
+
+						// If has errors.
+						if( response.data.errors && response.data.errors.length )
+							processFormErrors( JSON.parse( response.data.errors ), form )
+
+						break
+				}
+			}
+
+			setAjaxStatus( false )
+		} )
+	} )
+}
+
+/**
+ * Activation.
+ */
+export const activate = () => {
+	const form		= document.querySelector( '.form-activate' ),
+		authPopup	= document.querySelector( '.popup-auth' ),
+		popupInner	= authPopup.querySelector( '.popup-inner' )
+
+	if( ! form ) return
+
+	form.addEventListener( 'submit', e => {
+		e.preventDefault()
+
+		if( getAjaxStatus() ) return
+
+		setAjaxStatus( true )
+
+		const formData	= new FormData( form ),
+			button		= form.querySelector( '.button[type="submit"]' ),
+			msg			= form.querySelector( '.form-message' ),
+			loader		= createLoader()
+
+		formData.append( 'action', 'bydlo_ajax_activate' )
+		formData.append( 'form_data', formData )
+		button.appendChild( loader )
+		clearFormMessage( msg )
+		clearFormErrorClasses( form )
+
+		bydloAjaxRequest( formData ).then( response => {
+			if( response ){
+				loader.remove()
+
+				switch( response.success ){
+					case true:
+						setFormMessage( msg, response.data.msg, true )
+
+						if( response.data.redirect ) location.href = response.data.redirect
 						break
 
 					case false:

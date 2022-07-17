@@ -24,11 +24,19 @@
 		<label for="login" class="label-focus">
 			<input id="login" type="text" name="login" placeholder="<?php esc_attr_e( 'Логин *', 'bydlokod' ) ?>" />
 		</label>
-		<label for="pass1" class="label-focus">
-			<input id="pass1" type="text" name="pass1" placeholder="<?php esc_attr_e( 'Пароль *', 'bydlokod' ) ?>" />
+		<label for="pass1" class="label-focus label-for-pass">
+			<input id="pass1" type="password" name="pass1" placeholder="<?php esc_attr_e( 'Пароль *', 'bydlokod' ) ?>" />
+			<span class="toggle-pass">
+				<i class="fa-solid fa-eye show-pass" title="<?php esc_attr_e( 'Показать пароль', 'bydlokod' ) ?>"></i>
+				<i class="fa-solid fa-eye-slash hide-pass hidden" title="<?php esc_attr_e( 'Скрыть пароль', 'bydlokod' ) ?>"></i>
+			</span>
 		</label>
-		<label for="pass2" class="label-focus">
-			<input id="pass2" type="text" name="pass2" placeholder="<?php esc_attr_e( 'Повторите пароль *', 'bydlokod' ) ?>" />
+		<label for="pass2" class="label-focus label-for-pass">
+			<input id="pass2" type="password" name="pass2" placeholder="<?php esc_attr_e( 'Повторите пароль *', 'bydlokod' ) ?>" />
+			<span class="toggle-pass">
+				<i class="fa-solid fa-eye show-pass" title="<?php esc_attr_e( 'Показать пароль', 'bydlokod' ) ?>"></i>
+				<i class="fa-solid fa-eye-slash hide-pass hidden" title="<?php esc_attr_e( 'Скрыть пароль', 'bydlokod' ) ?>"></i>
+			</span>
 		</label>
 
 		<div class="form-message"></div>

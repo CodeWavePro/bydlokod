@@ -36,3 +36,28 @@ export const clearFormErrorClasses = form => {
 
 	form.querySelectorAll( 'label.error' ).forEach( label => label.classList.remove( 'error' ) )
 }
+
+export const togglePasswordVisibilityInInput = () => {
+	const togglePassButtons = document.querySelectorAll( '.toggle-pass' )
+
+	if( ! togglePassButtons.length ) return
+
+	togglePassButtons.forEach( iconWrapper => {
+		iconWrapper.addEventListener( 'click', () => {
+			const label		= iconWrapper.closest( 'label' ),
+				input		= label.querySelector( 'input' )
+
+
+			// If password is hidden - show it.
+			iconWrapper.querySelector( '.hidden' ).classList.remove( 'hidden' )
+
+			if( input.type === 'password' ){
+				input.type = 'text'
+				iconWrapper.querySelector( '.show-pass' ).classList.add( 'hidden' )
+			}	else {
+				input.type = 'password'
+				iconWrapper.querySelector( '.hide-pass' ).classList.add( 'hidden' )
+			}
+		} )
+	} )
+}

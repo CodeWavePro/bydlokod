@@ -27,6 +27,10 @@ Container::make( 'theme_options', __( 'Настройки темы' ) )
 	->add_tab( __( 'Авторизация' ), [
 		Field::make( 'rich_text', 'account_activation_email', __( 'Письмо для активации аккаунта' ) )
 			->set_help_text( __( 'Плэйсхолдеры: [user_login], [code].' ) )
+			->set_width( 50 ),
+		Field::make( 'rich_text', 'account_activated_email', __( 'Письмо успешной активации аккаунта' ) )
+			->set_help_text( __( 'Плэйсхолдеры: [user_login].' ) )
+			->set_width( 50 )
 	] );
 
 	/*	Field::make( 'rich_text', 'auth_lost_pass_email' . rp_get_carbon_lang_ending(), __( 'Lost Password E-mail Text' ) )

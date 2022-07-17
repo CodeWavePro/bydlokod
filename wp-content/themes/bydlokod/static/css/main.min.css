@@ -6509,6 +6509,21 @@ label {
       font-size: 15px;
       color: #9BABFF;
       opacity: 0; }
+  label.label-for-pass .toggle-pass {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+    cursor: pointer; }
+    label.label-for-pass .toggle-pass:hover i {
+      color: #9BABFF; }
+  label.label-for-pass i {
+    color: #BCBCBC;
+    -webkit-transition: color ease-out 0.35s;
+    -o-transition: color ease-out 0.35s;
+    transition: color ease-out 0.35s; }
   label.error input {
     border-bottom-color: #FF3E3E; }
 
@@ -6656,16 +6671,20 @@ input {
     color: #9BABFF; }
 
 .form-login,
-.form-register {
+.form-register,
+.form-activate {
   padding: 30px 30px 20px; }
   .form-login label,
-  .form-register label {
+  .form-register label,
+  .form-activate label {
     margin-bottom: 10px; }
     .form-login label:last-of-type,
-    .form-register label:last-of-type {
+    .form-register label:last-of-type,
+    .form-activate label:last-of-type {
       margin-bottom: 0; }
   .form-login .form-submit,
-  .form-register .form-submit {
+  .form-register .form-submit,
+  .form-activate .form-submit {
     margin-top: 30px; }
 
 .sidebar {

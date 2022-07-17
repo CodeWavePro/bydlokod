@@ -212,20 +212,77 @@ function bydlo_ajax_register(){
 	add_user_meta( $new_user_id, 'has_to_be_activated', $code, true );
 
 	/**
-	 * @see Theme Settings -> Authorization -> Lost Password E-mail Text.
+	 * @see Theme Settings -> Authorization -> Account Activation E-mail Text.
 	 */
 	$msg = carbon_get_theme_option( 'account_activation_email' );
 
 	if( ! $msg )
 		wp_send_json_error( ['msg' => esc_html__( 'Не удалось отправить письмо для активации. Попробуйте ещё раз позднее.', 'bydlokod' )] );
 
-	// Replace placehokders with User data and send email.
+	// Replace placeholders with User data and send email.
 	$msg = str_replace( '[user_login]', $login, $msg );
 	$msg = str_replace( '[code]', $code, $msg );
 	bydlo_set_html_filters_for_email();
 	wp_mail( $email, 'БыдлоКод', $msg );
 	remove_filter( 'wp_mail_content_type', 'bydlo_set_html_content_type' );
+	$legend = esc_html__( 'Скопируйте код из письма на указанной при регистрации почте и вставьте в поле ниже для активации аккаунта:', 'bydlokod' );
 
-	wp_send_json_success( ['msg' => esc_html__( 'Регистрация прошла успешно!', 'bydlokod' )] );
+	wp_send_json_success( [
+		'msg'	=> esc_html__( 'Регистрация прошла успешно!', 'bydlokod' ),
+		'form'	=> bydlo_get_template_part( 'includes/auth/activate', null, [
+			'legend'	=> $legend,
+			'user_id'	=> $new_user_id
+		] )
+	] );
+}
+
+add_action( 'wp_ajax_nopriv_bydlo_ajax_activate', 'bydlo_ajax_activate' );
+/**
+ * Account activation.
+ */
+function bydlo_ajax_activate(){
+	if( empty( $_POST ) || ! wp_verify_nonce( $_POST['bydlo_activate_nonce'], 'bydlo_ajax_activate' ) )
+		wp_send_json_error( ['msg' => __( '<b>Ошибка:</b> Неверные данные.', 'bydlokod' )] );
+
+	$code		= ! empty( $_POST['code'] ) ? bydlo_clean_pass( $_POST['code'] ) : null;
+	$user_id	= ! empty( $_POST['user'] ) ? bydlo_clean( $_POST['user'] ) : null;
+
+	// If data is not set - add errors.
+	if( ! $code || ! $user_id )
+		wp_send_json_error( [
+			'msg'		=> __( '<b>Ошибка:</b> Неверные данные.', 'bydlokod' ),
+			'errors'	=> ['code']
+		] );
+
+	if( ! $user = get_user_by( 'id', $user_id ) )
+		wp_send_json_error( ['msg' => __( '<b>Ошибка:</b> Пользователь не найден.', 'bydlokod' )] );
+
+	// Get saved activation code from User's field.
+	$saved_code = get_user_meta( $user_id, 'has_to_be_activated', true );
+
+	if( $code !== $saved_code )
+		wp_send_json_error( ['msg' => __( '<b>Ошибка:</b> Неверный код активации.', 'bydlokod' )] );
+
+	// User is activated, don't need this anymore.
+	delete_user_meta( $user_id, 'has_to_be_activated' );
+
+	/**
+	 * @see Theme Settings -> Authorization -> Account has been Activated E-mail Text.
+	 */
+	$msg		= carbon_get_theme_option( 'account_activated_email' );
+	$login		= $user->data->user_login;
+	$email		= $user->data->user_email;
+	$redirect	= home_url( '/' );
+
+	// Replace placeholders with User data and send email.
+	$msg = str_replace( '[user_login]', $login, $msg );
+	bydlo_set_html_filters_for_email();
+	wp_mail( $email, 'БыдлоКод', $msg );
+	remove_filter( 'wp_mail_content_type', 'bydlo_set_html_content_type' );
+
+	wp_send_json_success( [
+		'msg'		=> esc_html__( 'Аккаунт активирован!', 'bydlokod' ),
+		'redirect'	=> $redirect
+	] );
 }
 

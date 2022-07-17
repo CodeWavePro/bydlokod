@@ -70,6 +70,25 @@ label {
 		}
 	}
 
+	&.label-for-pass {
+		.toggle-pass {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translateY(-50%);
+			cursor: pointer;
+
+			&:hover i {
+				color: $violet
+			}
+		}
+
+		i {
+			color: $lightgray;
+			transition: color ease-out $tr
+		}
+	}
+
 	&.error {
 		input {
 			border-bottom-color: $red
